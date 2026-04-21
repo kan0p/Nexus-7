@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Nexys-7/static/css/main.6107752a.css",
+    "main.js": "/Nexys-7/static/js/main.c42eea51.js",
+    "index.html": "/Nexys-7/index.html",
+    "main.6107752a.css.map": "/Nexys-7/static/css/main.6107752a.css.map",
+    "main.c42eea51.js.map": "/Nexys-7/static/js/main.c42eea51.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6107752a.css",
+    "static/js/main.c42eea51.js"
+  ]
+}
