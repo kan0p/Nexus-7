@@ -2,7 +2,7 @@
   "name": "nexus7-escape-room",
   "version": "1.0.0",
   "description": "MongoDB Escape Room — Hacker vs NEXUS-7",
-  "homepage": ".",
+  "homepage": "https://kan0p.github.io/Nexys-7",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
