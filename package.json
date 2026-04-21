@@ -1,0 +1,28 @@
+{
+  "name": "nexus7-escape-room",
+  "version": "1.0.0",
+  "description": "MongoDB Escape Room — Hacker vs NEXUS-7",
+  "homepage": ".",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "mingo": "^6.4.0",
+    "xterm": "^5.3.0",
+    "xterm-addon-fit": "^0.8.0",
+    "@xterm/xterm": "^5.3.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+  }
+}

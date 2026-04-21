@@ -1,0 +1,8 @@
+services:
+  nexus7:
+    build: .
+    image: nexus7-escape-room:latest
+    container_name: nexus7
+    ports:
+      - "8080:80"
+    restart: unless-stopped

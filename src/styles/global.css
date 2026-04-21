@@ -1,0 +1,172 @@
+/* src/styles/global.css */
+
+:root {
+  --neon-green: #00ff88;
+  --neon-cyan: #00e5ff;
+  --neon-magenta: #ff00aa;
+  --neon-red: #ff2244;
+  --neon-yellow: #ffee00;
+  --bg-black: #050810;
+  --bg-panel: #0a0f1a;
+  --bg-card: #0d1525;
+  --border-dim: rgba(0, 255, 136, 0.2);
+  --border-bright: rgba(0, 255, 136, 0.6);
+  --text-dim: rgba(0, 255, 136, 0.5);
+  --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+  --font-display: 'Orbitron', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  width: 100%; height: 100%;
+  background: var(--bg-black);
+  color: var(--neon-green);
+  font-family: var(--font-mono);
+  overflow: hidden;
+}
+
+/* SCANLINES overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.15) 2px,
+    rgba(0,0,0,0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* CRT vignette */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.7) 100%);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-black); }
+::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 3px; }
+
+/* Neon text glow */
+.neon-text {
+  text-shadow: 0 0 8px currentColor, 0 0 20px currentColor;
+}
+
+/* Glitch animation */
+@keyframes glitch {
+  0%   { transform: translate(0); clip-path: none; }
+  20%  { transform: translate(-3px, 1px); clip-path: inset(20% 0 60% 0); }
+  40%  { transform: translate(3px, -1px); clip-path: inset(60% 0 20% 0); }
+  60%  { transform: translate(-2px, 2px); clip-path: inset(40% 0 40% 0); }
+  80%  { transform: translate(2px, -2px); clip-path: inset(10% 0 80% 0); }
+  100% { transform: translate(0); clip-path: none; }
+}
+
+.glitch {
+  animation: glitch 0.4s steps(1) forwards;
+}
+
+/* Electric flash */
+@keyframes electric-flash {
+  0%, 100% { background: var(--bg-black); }
+  10%, 30%, 50% { background: rgba(255,255,255,0.95); }
+  20%, 40% { background: rgba(0,200,255,0.3); }
+}
+
+.trap-electric { animation: electric-flash 0.6s ease forwards; }
+
+/* Virus corruption */
+@keyframes virus-corrupt {
+  0%, 100% { filter: none; }
+  20% { filter: hue-rotate(90deg) saturate(3) blur(1px); }
+  40% { filter: hue-rotate(180deg) saturate(5); }
+  60% { filter: hue-rotate(270deg) saturate(3) blur(2px); }
+  80% { filter: hue-rotate(360deg) saturate(2); }
+}
+
+.trap-virus { animation: virus-corrupt 1s ease forwards; }
+
+/* EMP blackout */
+@keyframes emp-blackout {
+  0%, 100% { opacity: 1; }
+  10%, 90% { opacity: 0; }
+  50% { opacity: 0; }
+}
+
+.trap-emp { animation: emp-blackout 2s ease forwards; }
+
+/* Firewall drain */
+@keyframes firewall-drain {
+  0% { filter: none; }
+  50% { filter: brightness(0.3) sepia(1) hue-rotate(320deg); }
+  100% { filter: none; }
+}
+
+.trap-firewall { animation: firewall-drain 1.5s ease forwards; }
+
+/* Selfdestruct */
+@keyframes selfdestruct {
+  0%   { filter: none; transform: scale(1); }
+  25%  { filter: brightness(2) contrast(2); transform: scale(1.01); }
+  50%  { filter: invert(1); transform: scale(0.99); }
+  75%  { filter: brightness(0.2); transform: scale(1.02); }
+  100% { filter: none; transform: scale(1); }
+}
+
+.trap-selfdestruct { animation: selfdestruct 1.2s steps(2) forwards; }
+
+/* Typewriter cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor::after {
+  content: '█';
+  animation: blink 1s step-end infinite;
+  color: var(--neon-green);
+}
+
+/* Pulse border */
+@keyframes border-pulse {
+  0%, 100% { box-shadow: 0 0 5px var(--neon-green), inset 0 0 5px rgba(0,255,136,0.1); }
+  50% { box-shadow: 0 0 20px var(--neon-green), 0 0 40px rgba(0,255,136,0.3), inset 0 0 10px rgba(0,255,136,0.2); }
+}
+
+.pulse-border {
+  animation: border-pulse 2s ease-in-out infinite;
+}
+
+/* Fade in */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in { animation: fade-in 0.4s ease forwards; }
+
+/* Damage flash on lives */
+@keyframes damage-flash {
+  0%, 100% { color: var(--neon-red); transform: scale(1.3); }
+  50%       { color: var(--neon-red); transform: scale(0.8); }
+}
+
+.damage { animation: damage-flash 0.5s ease; }
+
+/* Countdown for selfdestruct */
+@keyframes countdown-pulse {
+  0%, 100% { color: var(--neon-red); text-shadow: 0 0 20px var(--neon-red); }
+  50%       { color: #fff; text-shadow: 0 0 40px var(--neon-red); }
+}
+
+.countdown { animation: countdown-pulse 1s ease-in-out infinite; }
