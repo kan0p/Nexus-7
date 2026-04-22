@@ -86,11 +86,17 @@ function EndScreen({
 }) {
   const [highlightId, setHighlightId] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
 
   const handleSubmit = async (name) => {
     const resp = await submitRun({ ...runData, name });
-    if (resp?.id) setHighlightId(resp.id);
+    if (resp?.id) {
+      setHighlightId(resp.id);
+      setSubmitError(false);
+    } else {
+      setSubmitError(true);
+    }
     setSubmitted(true);
     setReloadKey((k) => k + 1);
   };
@@ -115,6 +121,21 @@ function EndScreen({
 
       {!submitted ? (
         <NameEntry score={runData.score} accent={accentColor} onSubmit={handleSubmit} />
+      ) : submitError ? (
+        <div style={{
+          color: "#ff2244",
+          fontFamily: "var(--font-display)",
+          fontSize: "11px",
+          letterSpacing: "0.25em",
+          marginBottom: "18px",
+          textAlign: "center",
+          lineHeight: "1.6",
+        }}>
+          ERROR AL REGISTRAR — SCORE NO PERSISTIÓ<br />
+          <span style={{ fontSize: "10px", opacity: 0.7 }}>
+            revisa DevTools / consola del navegador
+          </span>
+        </div>
       ) : (
         <div style={{
           color: accentColor,

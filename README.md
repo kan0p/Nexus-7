@@ -27,22 +27,48 @@ Si hay deploy estático activo: https://kan0p.github.io/Nexus-7
 ## Cómo se juega
 
 - **3 vidas.** 3 errores seguidos en un nodo disparan una trampa y descuentan una vida.
-- **5 nodos.** Cada uno requiere una query MongoDB distinta: equality, `$gt`/`$in`, dot notation, `$lookup`, `$group`.
-- **Ranking.** Al ganar o perder se registra tu puntaje con tu handle.
+- **6 nodos.** Cada uno exige un operador MongoDB distinto:
 
-**Puntaje** (independiente de las vidas):
+  | # | Nombre        | Operador principal         |
+  | - | ------------- | -------------------------- |
+  | 1 | THE ENTRYWAY  | equality (match por campos)|
+  | 2 | DATA VAULT    | `$gt` + `$in`              |
+  | 3 | THE ARCHIVES  | dot notation + `$in`       |
+  | 4 | NEURAL LINK   | `$lookup` + `$match`       |
+  | 5 | THE CORE      | `$group` + `$sum`          |
+  | 6 | DEAD DROP     | `$regex` + equality        |
 
-| Evento                              | Puntos |
-| ----------------------------------- | ------ |
-| Nodo resuelto                       | +1000  |
-| Bonus por velocidad (máx 20s)       | +500   |
-| Query incorrecta                    | −75    |
-| Pista usada                         | −50    |
-| Trampa activada                     | −300   |
+- **Encadenado.** Lo que descubrís en un nodo se usa narrativamente en el siguiente: el empleado del N1 determina el sector del N2, su id deriva el lab del N3, lidera el proyecto comprometido del N4, y ese proyecto reaparece en N5 y N6.
+- **Variantes.** Cada partida baraja datos y elige una variante distinta por nodo. No memorizás — tenés que resolver de nuevo.
+- **Ranking.** Al ganar o perder se registra tu puntaje con tu handle y se muestra el top 10. También accesible desde la intro con `[ RANKING ]`.
+
+## Sistema de puntaje
+
+El puntaje es **independiente de las vidas** — podés perder y aun así terminar con score alto, y podés ganar con score bajo si tardaste mucho o usaste muchas pistas. Valores definidos en [`src/scoring.js`](src/scoring.js):
+
+| Evento                                   | Delta al score |
+| ---------------------------------------- | -------------- |
+| Nodo resuelto                            | **+1000**      |
+| Bonus por velocidad (solución ≤ 20 s)    | **+500**       |
+| Bonus por velocidad (20 s → 2 min)       | +500 → 0 (lineal) |
+| Bonus por velocidad (> 2 min)            | 0              |
+| Query incorrecta                         | **−75**        |
+| Cada click a pista 1 o pista 2           | **−50**        |
+| Trampa activada (cada vez que perdés vida) | **−300**    |
+
+El score se _clampea_ a 0 como piso (nunca negativo). Penalizaciones acumulan: si pedís 10 pistas en un mismo nodo, son −500.
+
+**Cálculo del bonus de velocidad** ([scoring.js:23](src/scoring.js#L23)):
+
+```
+bonus = 500                                   si elapsed ≤ 20 s
+bonus = 0                                     si elapsed ≥ 120 s
+bonus = 500 * (120 - elapsed) / 100           en el rango intermedio
+```
 
 **Atajos de la terminal**
 
-- `hint1` / `hint2` — revela pistas (penaliza puntaje).
+- `hint1` / `hint2` — revela pistas (penaliza igual que los botones).
 - `clear` — limpia la pantalla.
 - Flechas `↑` `↓` — historial de queries.
 
@@ -50,9 +76,10 @@ Si hay deploy estático activo: https://kan0p.github.io/Nexus-7
 
 ## Stack
 
-- **Frontend:** React 18, [Mingo](https://github.com/kofrasa/mingo), [Xterm.js](https://xtermjs.org/), Web Audio API para sonidos programáticos.
-- **Backend:** Node 20, Express, [better-sqlite3](https://github.com/WiseLibs/better-sqlite3).
+- **Frontend:** React 18, [Mingo](https://github.com/kofrasa/mingo) (motor de queries MongoDB en el navegador), [Xterm.js](https://xtermjs.org/), Web Audio API + `<audio>` MP3 para los sonidos.
+- **Backend:** Node 24, Express, [better-sqlite3](https://github.com/WiseLibs/better-sqlite3).
 - **Infra:** Docker Compose (web + server + volumen SQLite), nginx sirve el build y proxyea `/api/` al backend.
+- **CI:** GitHub Actions con Node 24, deploy automático del frontend estático a GitHub Pages.
 
 ---
 
@@ -60,8 +87,8 @@ Si hay deploy estático activo: https://kan0p.github.io/Nexus-7
 
 ### Requisitos
 
-- Node 20+
-- Docker (opcional, para probar el stack completo)
+- Node 24 (recomendado, es la versión usada por CI y los contenedores).
+- Docker (opcional, para probar el stack completo con backend + SQLite).
 
 ### Frontend
 
