@@ -56,8 +56,8 @@ antes de que el backup automático los borre.`,
       collection: "comms",
       data,
       hints: {
-        hint1: "Para búsqueda por patrón usa $regex con el texto a buscar.",
-        hint2: `db.comms.find({ message: { $regex: "${keyword}" }, flags: "ENCRYPTED" })`,
+        hint1: "CjsoO3o4Lyk5Oyh6LzR6KjsuKKk0ej4/NC4oNXo+P3ovNHopLigzND12ehc1ND01Hhh6LjM/ND96LzR6NSo/KDs+NSh6Ky8/ei41Nzt6PzZ6KjsuKKk0ejk1NzV6Lj8iLjV0",
+        hint2: "GTU3ODM0u3o/Nno1Kj8oOz41KHo+P3oqOy4oqTR6KTU4KD96LzR6OTs3KjV6OTU0ei80ejc7Ljkyej4/ejM9Lzs2Pjs+ej8iOzkuO3opNTgoP3o1Lig1ejk7Nyo1dno7Nzg1KXo/NHo/Nno3Myk3NXo8MzQ+dA==",
       },
       trap: {
         name: "AUTO-WIPE",

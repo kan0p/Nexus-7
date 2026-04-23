@@ -56,8 +56,8 @@ que hayan sido marcados como ${statusA} o ${statusB}.`,
       collection: "experiments",
       data,
       hints: {
-        hint1: 'Para campos anidados usa "dot notation": "objeto.campo".',
-        hint2: `db.experiments.find({ "lab.id": "${labId}", status: { $in: ["${statusA}", "${statusB}"] } })`,
+        hint1: "CjsoO3o5OzcqNSl6OzQzPjs+NSl6PzR6FzU0PTUeGHovKbt6PjUuejQ1LjsuMzU0ej80Lig/ejk1NzM2NjspYHp4Kjs+KD90MjMwNXh0",
+        hint2: "GTU3ODM0u3o+NSl6OTU0PjM5MzU0Pyl6PzR6PzZ6NzMpNzV6PDM0PmB6Njt6OTY7LD96OzQzPjs+O3o5NTc1eikuKDM0PXo/NC4oP3o5NTczNjY7KXZ6I3ovNHo1Kj8oOz41KHo+P3ozNDk2LykzqTR6OTU0ejsoKDsjeio7KDt6PzZ6NS4oNXo5OzcqNXQ=",
       },
       trap: {
         name: "PULSO EMP",

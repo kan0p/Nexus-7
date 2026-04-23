@@ -170,3 +170,33 @@ body::before {
 }
 
 .countdown { animation: countdown-pulse 1s ease-in-out infinite; }
+
+/* Penalty float — rises and fades when a hint is used (or other soft penalty) */
+@keyframes penalty-float {
+  0%   { opacity: 0; transform: translateY(0) scale(0.9); }
+  15%  { opacity: 1; transform: translateY(-6px) scale(1.05); }
+  100% { opacity: 0; transform: translateY(-34px) scale(1); }
+}
+
+.penalty-float {
+  position: absolute;
+  pointer-events: none;
+  animation: penalty-float 1s ease-out forwards;
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--neon-red);
+  text-shadow: 0 0 8px var(--neon-red), 0 0 18px rgba(255,34,68,0.6);
+  white-space: nowrap;
+}
+
+/* Brief red shake on the score digits when a penalty hits */
+@keyframes score-shake {
+  0%, 100% { transform: translate(0); color: var(--neon-cyan); }
+  20%      { transform: translate(-1px, 0); color: var(--neon-red); }
+  40%      { transform: translate(1px, 0); color: var(--neon-red); }
+  60%      { transform: translate(-1px, 0); color: var(--neon-red); }
+  80%      { transform: translate(1px, 0); color: var(--neon-red); }
+}
+
+.score-shake { animation: score-shake 0.45s ease; }

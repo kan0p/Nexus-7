@@ -65,8 +65,8 @@ que pertenezcan a los sectores "${primarySector}" o "${secondarySector}".`,
       collection: "transactions",
       data,
       hints: {
-        hint1: "Usa $gt para mayor que, y $in para una lista de valores posibles.",
-        hint2: `db.transactions.find({ amount: { $gt: ${threshold} }, sector: { $in: ["${primarySector}", "${secondarySector}"] } })`,
+        hint1: "Dym7ei80ejUqPyg7PjUoej4/ejk1Nyo7KDs5M6k0eio7KDt6PzZ6NzU0LjV6I3o1Lig1eio7KDt6LzQ7ejYzKS47ej4/ejUqOTM1ND8pdHoMOzR6Pj80Lig1ej4/NnosOzY1KHZ6NDV6OTU3NXoxPyN6KigzNDkzKjs2dA==",
+        hint2: "HDUoNzt6PT80sygzOTtgeiF6OTs3KjVgeiF6fjUqPyg7PjUoYHosOzY1KHoneid0ego7KDt6NjMpLjspei8pu3ovNHo7KCg7I3Q=",
       },
       trap: {
         name: "VIRUS DE CORRUPCIÓN",

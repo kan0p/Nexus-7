@@ -70,12 +70,16 @@ export default function App() {
   }, []);
 
   // Every click of a hint button penalizes. No dedup — spam costs score.
+  // We bump `penaltyTick` so the HUD can animate the drop visibly; a plain
+  // counter is enough because React re-renders on any value change.
+  const [penaltyTick, setPenaltyTick] = useState(0);
   const handleHintUsed = useCallback(() => {
     setState((s) => ({
       ...s,
       score: clampScore(s.score - hintPenalty()),
       hintsTotal: s.hintsTotal + 1,
     }));
+    setPenaltyTick((t) => t + 1);
   }, []);
 
   const handleSubmit = useCallback((rawInput) => {
@@ -200,6 +204,7 @@ export default function App() {
         totalNodes={scenarios.length}
         errors={state.errors}
         score={state.score}
+        penaltyTick={penaltyTick}
       />
 
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>

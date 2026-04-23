@@ -1,5 +1,5 @@
 // src/components/HUD.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MAX_LIVES, ERRORS_PER_TRAP } from "../levels/registry";
 
 const styles = {
@@ -64,7 +64,18 @@ const styles = {
   },
 };
 
-export function HUD({ lives, currentNode, totalNodes, errors, score = 0 }) {
+export function HUD({ lives, currentNode, totalNodes, errors, score = 0, penaltyTick = 0 }) {
+  // Whenever the parent signals a soft penalty (currently: hint used), show
+  // a floating "-50 PISTA" above the score and shake the score for a moment.
+  const [flash, setFlash] = useState(false);
+  useEffect(() => {
+    if (!penaltyTick) return;
+    setFlash(true);
+    const t = setTimeout(() => setFlash(false), 1000);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [penaltyTick]);
+
   return (
     <div style={styles.hud}>
       {/* Left — lives */}
@@ -78,7 +89,24 @@ export function HUD({ lives, currentNode, totalNodes, errors, score = 0 }) {
           ))}
         </div>
         <span style={styles.label}>SCORE</span>
-        <span style={styles.score}>{score}</span>
+        <span style={{ ...styles.score, position: "relative" }}>
+          <span
+            key={penaltyTick}
+            className={flash ? "score-shake" : ""}
+            style={{ display: "inline-block" }}
+          >
+            {score}
+          </span>
+          {flash && (
+            <span
+              key={`p-${penaltyTick}`}
+              className="penalty-float"
+              style={{ top: "-8px", right: "-4px" }}
+            >
+              -50 PISTA
+            </span>
+          )}
+        </span>
       </div>
 
       {/* Center — title */}

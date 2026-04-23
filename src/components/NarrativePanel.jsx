@@ -1,5 +1,6 @@
 // src/components/NarrativePanel.jsx
 import React, { useState, useEffect } from "react";
+import { decodeHint } from "../levels/hintCodec";
 
 const s = {
   panel: {
@@ -74,7 +75,8 @@ export function NarrativePanel({ scenario, totalNodes, onHintUsed }) {
   }, [scenario.id, scenario.narrative]);
 
   const showHint = (n) => {
-    const msg = n === 1 ? scenario.hints.hint1 : scenario.hints.hint2;
+    const raw = n === 1 ? scenario.hints.hint1 : scenario.hints.hint2;
+    const msg = decodeHint(raw);
     window.__nexusWriteHint?.(`[PISTA ${n}] ${msg}`);
     onHintUsed?.(n);
   };

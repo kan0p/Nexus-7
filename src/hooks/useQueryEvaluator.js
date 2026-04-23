@@ -5,13 +5,27 @@
 // level only means writing its evaluate() — no changes here.
 import { useCallback } from "react";
 import mingo from "mingo";
+// Mingo 6 is modular and ships WITHOUT pipeline/accumulator operators
+// registered. Without this side-effect import, $group, $lookup, $sum, etc.
+// throw "unregistered pipeline operator". Level 4 ($lookup) and level 5
+// ($group + $sum) depend on this.
+import "mingo/init/system";
 
+// Accepts db.<col>.find(...), db.<col>.findOne(...), or db.<col>.aggregate(...)
+// and returns the parsed query object / pipeline.
 function parseQuery(raw) {
   let str = raw.trim();
-  const findMatch = str.match(/^db\.\w+\.find\s*\(([\s\S]*)\)\s*$/i);
+
+  // findOne behaves like find for our matcher (we already compare by _id set).
+  const findMatch = str.match(/^db\.\w+\.find(?:One)?\s*\(([\s\S]*)\)\s*$/i);
   if (findMatch) str = findMatch[1].trim();
   const aggMatch = str.match(/^db\.\w+\.aggregate\s*\(([\s\S]*)\)\s*$/i);
   if (aggMatch) str = aggMatch[1].trim();
+
+  // Shell-style → JSON:
+  //   {role: "X"}  →  {"role":"X"}
+  //   {$gt: 5}     →  {"$gt":5}
+  //   {'x':1}      →  {"x":1}
   const jsonified = str
     .replace(/([{,]\s*)(\$?[a-zA-Z_][a-zA-Z0-9_.]*)\s*:/g, '$1"$2":')
     .replace(/:\s*'([^']*)'/g, ': "$1"');

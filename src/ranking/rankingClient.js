@@ -1,25 +1,32 @@
 // src/ranking/rankingClient.js
-// Fetch wrapper for the ranking API. Same-origin in production (nginx proxies
-// /api/ to the backend); in dev you can set REACT_APP_RANKING_BASE.
+// Firebase Realtime Database REST API integration.
+// No SDK required, works via standard fetch.
 
-const BASE = (process.env.REACT_APP_RANKING_BASE || "").replace(/\/+$/, "");
-const url = (p) => `${BASE}/api${p}`;
+const FIREBASE_URL = "https://nexus-7-29cf5-default-rtdb.firebaseio.com/ranking.json";
 
 export async function fetchTop(limit = 10) {
   try {
-    const r = await fetch(url(`/ranking?limit=${limit}`));
+    // We fetch everything and sort/limit on client side for simplicity
+    // unless we want to deal with Firebase's specific query syntax & indexing.
+    const r = await fetch(FIREBASE_URL);
     if (!r.ok) return [];
-    return await r.json();
-  } catch (_) {
+    const data = await r.json();
+    if (!data) return [];
+
+    return Object.entries(data)
+      .map(([id, val]) => ({ id, ...val }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit);
+  } catch (err) {
+    console.error("[nexus7] fetchTop error:", err);
     return [];
   }
 }
 
 export async function fetchBest() {
   try {
-    const r = await fetch(url("/ranking/best"));
-    if (!r.ok) return null;
-    return await r.json();
+    const list = await fetchTop(1);
+    return list.length > 0 ? list[0] : null;
   } catch (_) {
     return null;
   }
@@ -27,18 +34,24 @@ export async function fetchBest() {
 
 export async function submitRun(run) {
   try {
-    const r = await fetch(url("/ranking"), {
+    const r = await fetch(FIREBASE_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(run),
+      body: JSON.stringify({
+        ...run,
+        timestamp: Date.now()
+      }),
     });
     if (!r.ok) {
-      console.error("[nexus7] submitRun failed:", r.status, await r.text().catch(() => ""));
+      console.error("[nexus7] submitRun failed:", r.status);
       return null;
     }
-    return await r.json();
+    const res = await r.json();
+    return { id: res.name, ...run };
   } catch (err) {
+
     console.error("[nexus7] submitRun network error:", err);
     return null;
   }
 }
+
