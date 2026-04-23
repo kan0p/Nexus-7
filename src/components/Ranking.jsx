@@ -91,7 +91,7 @@ export function Ranking({ limit = 10, accent = "var(--neon-cyan)", highlightId =
               fontSize: "10px",
               letterSpacing: "0.1em",
             }}>
-              {r.outcome === "victory" ? "WIN" : "LOSE"}
+              {r.outcome === "victory" ? "CLEARED" : "DEFEAT"}
             </span>
           </div>
         );
