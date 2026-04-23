@@ -4,14 +4,7 @@
 // The correctness rule lives on each scenario (Strategy pattern) so adding a
 // level only means writing its evaluate() — no changes here.
 import { useCallback } from "react";
-import { Aggregator } from "mingo/core";
-import { useOperators, OperatorType } from "mingo/core";
-import { $lookup } from "mingo/operators/pipeline";
-
-// Register $lookup so Mingo can resolve cross-collection joins.
-// This is required in Mingo v6 because pipeline operators are tree-shaken
-// and must be explicitly registered before use.
-useOperators(OperatorType.PIPELINE, { $lookup });
+import mingo from "mingo";
 
 function parseQuery(raw) {
   let str = raw.trim();
@@ -31,16 +24,40 @@ function runFind(queryObj, data) {
 
 /**
  * Runs an aggregation pipeline with optional cross-collection support ($lookup).
+ *
+ * Mingo doesn't natively support $lookup (it requires a second collection),
+ * so we pre-process the pipeline: if a $lookup stage is found, we perform the
+ * join manually and replace the stage with a $addFields that injects the
+ * already-resolved "as" array. The rest of the pipeline continues normally.
+ *
  * @param {Array}  pipeline         - MongoDB aggregation pipeline stages.
  * @param {Array}  data             - Primary collection documents.
- * @param {Object} extraCollections - Map of collection name → documents array,
- *                                    used by $lookup's "from" field.
+ * @param {Object} extraCollections - Map of collection name → documents array.
  */
 function runAggregate(pipeline, data, extraCollections = {}) {
-  const agg = new Aggregator(pipeline, {
-    collectionResolver: (name) => extraCollections[name] ?? [],
-  });
-  return agg.run(data);
+  // Resolve $lookup stages manually before handing off to mingo
+  const resolvedPipeline = [];
+  let workingData = data;
+
+  for (const stage of pipeline) {
+    if (stage.$lookup) {
+      const { from, localField, foreignField, as } = stage.$lookup;
+      const foreignDocs = extraCollections[from] ?? [];
+      // Perform the join: inject the matched foreign docs into each document
+      workingData = workingData.map((doc) => ({
+        ...doc,
+        [as]: foreignDocs.filter(
+          (foreign) => foreign[foreignField] === doc[localField]
+        ),
+      }));
+      // Stage already applied manually — skip adding it to resolvedPipeline
+    } else {
+      resolvedPipeline.push(stage);
+    }
+  }
+
+  if (resolvedPipeline.length === 0) return workingData;
+  return mingo.aggregate(workingData, resolvedPipeline);
 }
 
 function crypticError(type) {
