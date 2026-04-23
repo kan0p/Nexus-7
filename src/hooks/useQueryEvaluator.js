@@ -4,7 +4,7 @@
 // The correctness rule lives on each scenario (Strategy pattern) so adding a
 // level only means writing its evaluate() — no changes here.
 import { useCallback } from "react";
-import mingo, { Aggregator } from "mingo";
+import { Aggregator } from "mingo/core";
 import { useOperators, OperatorType } from "mingo/core";
 import { $lookup } from "mingo/operators/pipeline";
 
