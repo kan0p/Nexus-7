@@ -55,8 +55,8 @@ Encuéntralo en la base de datos de empleados.`,
       collection: "employees",
       data,
       hints: {
-        hint1: "FD85PykzLrspej41KXo5NTQ+MzkzNTQ/KXopMzcvNi67ND87KXR6FzU0PTUeGHo2Oyl6Ozk/Ki47ejk1NzV6OTs3KjUpej4/Nno3Myk3NXo1ODA/LjV0",
-        hint2: "HzR6PDM0PnoqLz8+Pyl6KjU0Pyh6LDsoMzUpejk7Nyo1KXo7Nno3Myk3NXo0Myw/NnR6Gzc4NSl6Pj84PzR6OTUzNDkzPjMoejk1NHo/Nno+NTkvNz80LjV0",
+        hint1: "DynCu3o+OHQ/Nyo2NSM/Pyl0PDM0PnJzeio7KTs0PjV6LzR6NTgwPy41ejk1NHo+NSl6OTs3KjUpYHo7Nzg1KXo+Pzg/NHo5NTM0OTM+Myh6OTU0ej82ej41OS83PzQuNXQ=",
+        hint2: "HDUoNztgej44dD83KjY1Iz8/KXQ8MzQ+ciF6KDU2P2B6fXR0dH12ejs5OT8pKWB6fXR0dH16J3N6OTU0ejY1KXosOzY1KD8pej8iOzkuNSl6Pj82ejU4MD8uMyw1dA==",
       },
       trap: {
         name: "DESCARGA ELÉCTRICA",

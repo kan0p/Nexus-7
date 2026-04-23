@@ -17,6 +17,7 @@ import {
   trapPenalty,
   clampScore,
 } from "./scoring";
+import { decodeHint } from "./levels/hintCodec";
 import "./styles/global.css";
 
 const PHASE = {
@@ -83,8 +84,17 @@ export default function App() {
   }, []);
 
   const handleSubmit = useCallback((rawInput) => {
-    if (rawInput.toLowerCase() === "clear") {
+    const cmd = rawInput.trim().toLowerCase();
+    if (cmd === "clear") {
       window.__nexusClear?.();
+      return;
+    }
+    if (cmd === "hint1" || cmd === "hint2") {
+      const n = cmd === "hint1" ? 1 : 2;
+      const raw = n === 1 ? currentScenario.hints.hint1 : currentScenario.hints.hint2;
+      const msg = decodeHint(raw);
+      window.__nexusWriteHint?.(`[PISTA ${n}] ${msg}`);
+      handleHintUsed();
       return;
     }
 
@@ -159,7 +169,7 @@ export default function App() {
         };
       });
     }
-  }, [evaluate, currentScenario]);
+  }, [evaluate, currentScenario, handleHintUsed]);
 
   const handleTrapDone = useCallback(() => {
     setState((s) => {

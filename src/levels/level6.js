@@ -56,8 +56,8 @@ antes de que el backup automático los borre.`,
       collection: "comms",
       data,
       hints: {
-        hint1: "CjsoO3o4Lyk5Oyh6LzR6KjsuKKk0ej4/NC4oNXo+P3ovNHopLigzND12ehc1ND01Hhh6LjM/ND96LzR6NSo/KDs+NSh6Ky8/ei41Nzt6PzZ6KjsuKKk0ejk1NzV6Lj8iLjV0",
-        hint2: "GTU3ODM0u3o/Nno1Kj8oOz41KHo+P3oqOy4oqTR6KTU4KD96LzR6OTs3KjV6OTU0ei80ejc7Ljkyej4/ejM9Lzs2Pjs+ej8iOzkuO3opNTgoP3o1Lig1ejk7Nyo1dno7Nzg1KXo/NHo/Nno3Myk3NXo8MzQ+dA==",
+        hint1: "DynCu3p+KD89PyJ6KTU4KD96Nz8pKTs9P3oqOyg7ejgvKTk7KHo2O3oqOzY7OCg7ejk2Oyw/dnojei80O3ozPS87Nj47PnopMzcqNj96PzR6PDY7PSl0",
+        hint2: "HDUoNztgej44dDk1NzcpdDwzND5yIXo3PykpOz0/YHohen4oPz0/ImB6fQobFhsYCBt9eid2ejw2Oz0pYHp9HxQZCAMKDh8efXonc3Q=",
       },
       trap: {
         name: "AUTO-WIPE",

@@ -56,8 +56,8 @@ que hayan sido marcados como ${statusA} o ${statusB}.`,
       collection: "experiments",
       data,
       hints: {
-        hint1: "CjsoO3o5OzcqNSl6OzQzPjs+NSl6PzR6FzU0PTUeGHovKbt6PjUuejQ1LjsuMzU0ej80Lig/ejk1NzM2NjspYHp4Kjs+KD90MjMwNXh0",
-        hint2: "GTU3ODM0u3o+NSl6OTU0PjM5MzU0Pyl6PzR6PzZ6NzMpNzV6PDM0PmB6Njt6OTY7LD96OzQzPjs+O3o5NTc1eikuKDM0PXo/NC4oP3o5NTczNjY7KXZ6I3ovNHo1Kj8oOz41KHo+P3ozNDk2LykzqTR6OTU0ejsoKDsjeio7KDt6PzZ6NS4oNXo5OzcqNXQ=",
+        hint1: "Gzk5Pz7Cs3o7ejk7Nyo1KXo7NDM+Oz41KXo5NTR6NDUuOzkzwqk0eio1KHoqLzQuNSlgen02Ozh0Mz59dHoZNTc4MzQ7NjV6OTU0en4zNHopNTgoP3opLjsuLyl0",
+        hint2: "HDUoNztgej44dD8iKj8oMzc/NC4pdDwzND5yIXp9Njs4dDM+fWB6fRYbGHcCfXZ6KS47Li8pYHohen4zNGB6AX0Ja312fQlofQd6J3onc3Q=",
       },
       trap: {
         name: "PULSO EMP",

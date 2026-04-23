@@ -58,8 +58,8 @@ Debes confirmarlo uniendo las colecciones projects y employees.`,
       extraCollection: "employees",
       extraData,
       hints: {
-        hint1: "Oz09KD89Oy4/cnN6KD85Mzg/ei80ejsoKDsjej4/eikuOz0/KXR6HzZ6KigzNz8oeikuOz0/ej4/OD96LzQzKHozNDw1KDc7OTOpNHo+P3o1Lig7ejk1Nj85OTOpNHQ=",
-        hint2: "HzZ6KS47PT96Pj96LzQzqTR6LjU3O3puejk7Nyo1KWB6NSgzPT80enI8KDU3c3Z6OTs3KjV6NjU5OzZ2ejk7Nyo1eig/NzUuNXZ6I3o7NjM7KXo+P3opOzYzPjt6cjspc3R6Hj8pKi+zKXo8MzYuKLspejk1NHovNHopLjs9P3o+P3o3Oy45MnQ=",
+        hint1: "DynCu3o7PT0oPz07Lj96OTU0en42NTUxLyp6KjsoO3ovNDMoeiooNTA/OS4pejk1NHo/Nyo2NSM/Pyl6I3o+PykqL8KzKXp+NzsuOTJ6KjsoO3o8MzYuKDsoeio1KHopLjsuLyl0",
+        hint2: "HDUoNztgej44dCooNTA/OS4pdDs9PSg/PTsuP3IBIXp+NjU1MS8qYHohejwoNTdgen0/Nyo2NSM/Pyl9dno2NTk7NhwzPzY+YHp9Nj87Pj8oEz59dno8NSg/Mz00HDM/Nj5gen0FMz59dno7KWB6fTY/Oz4/KH16J3ondnohen43Oy45MmB6IXopLjsuLylgen0ZFRcKCBUXEwkfHn16J3onB3N0",
       },
       trap: {
         name: "FIREWALL INVERSO",

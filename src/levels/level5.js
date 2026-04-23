@@ -47,8 +47,8 @@ Si los números no cuadran, el sistema activa la autodestrucción.`,
       collection: "reactors",
       data: reactors,
       hints: {
-        hint1: "Oz09KD89Oy4/ejk1NHo/NnopLjs9P3o+P3o7PSgvKjs5M6k0dHofNnozPj80LjM8Mzk7PjUoej4/Nno9KC8qNXo/KXo/Nno5OzcqNXoqNSh6PzZ6Ky8/ejs9KC8quyl0",
-        hint2: "Hj80Lig1ej4/NnopLjs9P3Z6KjsoO3ooPzw/KDMoLj96OzZ6LDs2NSh6Pj96LzR6OTs3KjV6Pj82ej41OS83PzQuNXovKbt6PzZ6NDU3OCg/eiooPzk/PjM+NXoqNSh6fnR6Fjt6OzkvNy82OzkzqTR6Pj96LDs2NSg/KXo0LzezKDM5NSl6Lyk7ejUuKDV6NSo/KDs+NSh6OTU0en50",
+        hint1: "DynCu3o7PT0oPz07Lj96OTU0en49KDUvKmB6Oz0oLyrCu3oqNSh6fX4uIyo/fXojeikvN8K7en0/ND8oPSMODX10",
+        hint2: "HDUoNztgej44dCg/OzkuNSgpdDs9PSg/PTsuP3IBIXp+PSg1LypgeiF6BTM+YHp9fi4jKj99dnouNS47NmB6IXp+KS83YHp9fj80Pyg9Iw4NfXoneid6JwdzdA==",
       },
       trap: {
         name: "AUTODESTRUCCIÓN",
