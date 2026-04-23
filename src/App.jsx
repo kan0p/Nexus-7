@@ -171,7 +171,7 @@ export default function App() {
 
   const runData = useMemo(() => ({
     score: state.score,
-    outcome: state.phase === PHASE.VICTORY ? "victory" : "defeat",
+    outcome: state.phase === PHASE.VICTORY ? "win" : "lose",
     nodesCompleted: state.phase === PHASE.VICTORY ? scenarios.length : state.nodeIndex,
     errors: state.errorsTotal,
     hints: state.hintsTotal,

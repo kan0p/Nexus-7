@@ -87,11 +87,11 @@ export function Ranking({ limit = 10, accent = "var(--neon-cyan)", highlightId =
             </span>
             <span style={{
               textAlign: "right",
-              color: r.outcome === "victory" ? "var(--neon-green)" : "var(--neon-red)",
+              color: r.outcome === "win" ? "var(--neon-green)" : "var(--neon-red)",
               fontSize: "10px",
               letterSpacing: "0.1em",
             }}>
-              {r.outcome === "victory" ? "CLEARED" : "DEFEAT"}
+              {r.outcome === "win" ? "WIN" : "LOSE"}
             </span>
           </div>
         );

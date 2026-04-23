@@ -1,40 +1,13 @@
 // src/ranking/rankingClient.js
-// Firebase Realtime Database + Anonymous Auth (REST API).
-// Using the REST API keeps the bundle small and avoids SDK execution policy issues.
+// Firebase Realtime Database REST API integration.
+// No SDK required, works via standard fetch.
 
-const API_KEY = "AIzaSyC0Un0N_ezCCYA-oP7NDi0pqFL6iCy0USY";
-const DB_NAME = "nexus-7-29cf5-default-rtdb";
-const FIREBASE_URL = `https://${DB_NAME}.firebaseio.com/ranking.json`;
-const AUTH_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
-
-let cachedToken = null;
-
-/**
- * Signs in anonymously via REST and returns an ID token.
- * Cache the token for the session.
- */
-async function getAuthToken() {
-  if (cachedToken) return cachedToken;
-  try {
-    const r = await fetch(AUTH_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ returnSecureToken: true }),
-    });
-    if (!r.ok) throw new Error("Auth failed");
-    const data = await r.json();
-    cachedToken = data.idToken;
-    return cachedToken;
-  } catch (err) {
-    console.error("[nexus7] Anonymous auth failed:", err);
-    return null;
-  }
-}
+const FIREBASE_URL = "https://nexus-7-29cf5-default-rtdb.firebaseio.com/ranking.json";
 
 export async function fetchTop(limit = 10) {
   try {
-    // Reading usually doesn't require auth in these settings, but we can pass
-    // it if we secure the read rules later.
+    // We fetch everything and sort/limit on client side for simplicity
+    // unless we want to deal with Firebase's specific query syntax & indexing.
     const r = await fetch(FIREBASE_URL);
     if (!r.ok) return [];
     const data = await r.json();
@@ -61,13 +34,7 @@ export async function fetchBest() {
 
 export async function submitRun(run) {
   try {
-    const token = await getAuthToken();
-    if (!token) {
-      console.error("[nexus7] No auth token available for submission");
-      return null;
-    }
-
-    const r = await fetch(`${FIREBASE_URL}?auth=${token}`, {
+    const r = await fetch(FIREBASE_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -75,7 +42,6 @@ export async function submitRun(run) {
         timestamp: Date.now()
       }),
     });
-
     if (!r.ok) {
       console.error("[nexus7] submitRun failed:", r.status);
       return null;
@@ -83,6 +49,7 @@ export async function submitRun(run) {
     const res = await r.json();
     return { id: res.name, ...run };
   } catch (err) {
+
     console.error("[nexus7] submitRun network error:", err);
     return null;
   }
